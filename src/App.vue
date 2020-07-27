@@ -2,15 +2,18 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ApiCall/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import ApiCall from './components/ApiCall.vue'
 
 export default {
   name: 'App',
   components: {
+    ApiCall,
     HelloWorld
   }
 }
