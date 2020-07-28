@@ -1,34 +1,42 @@
 <template>
   <div>
-          <select
-            v-model="message"
-          >
-            <option
-              disabled
-              value=""
-            >
-              Select Coin
-            </option>
-            <option
-              v-for="coin in coins"
-              :value="coin"
-              :key="coin"
-            >
-              {{ coin }}
-            </option>
-          </select>
-    <input v-model="hash" placeholder="hash">
-    <button
-            type="button"
-            class="btn"
-            @click="getTx"
-          >
-            Search
+      <div class="container">
+            <div class="select-container">
+              <select class="select-coin"
+                v-model="message"
+              >
+                <option
+                  disabled
+                  value=""
+                >
+                  Select Coin
+                </option>
+                <option
+                  v-for="coin in coins"
+                  :value="coin"
+                  :key="coin"
+                >
+                  {{ coin }}
+                </option>
+              </select>
+            </div>
+        <div clas="text-container">
+          <input class="hash-input" v-model="hash" placeholder="hash">
+          <button
+                  type="button"
+                  class="btn"
+                  @click="getTx"
+                >
+                  Buscar
           </button>
-    <div v-for="(value, name) in list" :key="name">
-      {{ name }}: {{ value }}
-    </div>
-    <SendersRecipients v-bind:inputs="inputs" v-bind:outputs="outputs"/>
+        </div>
+      </div>
+      <div clas="results-container">
+        <div v-for="(value, name) in list" :key="name">
+          {{ name }}: {{ value }}
+        </div>
+        <SendersRecipients v-if="apiResponse" v-bind:inputs="inputs" v-bind:outputs="outputs"/>
+      </div>
   </div>
 </template>
 
@@ -39,11 +47,11 @@ import SendersRecipients from './SendersRecipients.vue'
 export default {
     data() {
     return {
-      message:'bitcoin',
+      message:'btc',
       hash:'',
       apiResponse: null,
       list: {},
-      coins: ['bitcoin', 'litecoin', 'bitcoin-cash'],
+      coins: ['btc', 'ltc'],
       inputs: [],
       outputs: [],
     };
@@ -54,13 +62,13 @@ export default {
   methods: {
     getTx() {
       this.axios
-      .get(`https://api.blockchair.com/${this.message}/dashboards/transaction/${this.hash}`)
+      .get(` https://api.blockcypher.com/v1/${this.message}/main/txs/${this.hash}`)
       .then((response) => {
-        this.apiResponse = response.data.data[Object.keys(response.data.data)]
+        this.apiResponse = response.data
         if (this.apiResponse) {
-          this.list["fees"] = `${this.apiResponse.transaction.fee/100000000} ${this.message}`
-          this.list["input amount"] = `${this.apiResponse.transaction.input_total} ${this.message}`
-          this.list["output amount"] = `${this.apiResponse.transaction.output_total} ${this.message}`
+          this.list["comisiones"] = `${this.apiResponse.fees/100000000} ${this.message}`
+          this.list["monto"] = `${this.apiResponse.total} ${this.message}`
+          this.list["confirmaciones"] = `${this.apiResponse.confirmations}`
           this.inputs = this.apiResponse.inputs
           this.outputs = this.apiResponse.outputs
         }
@@ -73,14 +81,45 @@ export default {
 </script>
 
 <style scoped>
-select {
-        width: 120px;
-        height: 30px;
-        border: 1px solid #999;
-        font-size: 18px;
-        color: black;
-        background-color: #eee;
-        border-radius: 5px;
-        box-shadow: 4px 4px #ccc;
-      }
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 500px;
+  padding-right: 350px;
+}
+
+.select-coin {
+  height: 40px;
+  width: 150px;
+  font-size: 30px;
+  font-family: sans-serif;
+  border-radius: 8px;
+}
+
+.select-container {
+  padding-top: 15px;
+}
+
+.hash-input {
+  height: 35px;
+  width: 200px;
+  font-size: 30px;
+  font-family: sans-serif;
+  border-radius: 8px;
+}
+
+.btn {
+  height: 40px;
+  width: 120px;
+  font-size: 30px;
+  font-family: sans-serif;
+  padding:0.6em 2em;
+  border-radius: 8px;
+  color:#fff;
+  background-color:#1976d2;
+  font-size:1.1em;
+  border:0;
+  cursor:pointer;
+  margin:1em;
+}
 </style>
