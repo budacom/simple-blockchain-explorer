@@ -56,11 +56,7 @@ export default {
           this.resquest_data = response.data
           this.transactions = this.resquest_data.txs
         })
-        .catch(error => {
-          if (error.response.status == 429) {
-            alert("API calls limit exceeded")
-          }
-        })
+        .catch(alert("No fue posible acceder a la dirección dada"))
       
     }
   },

@@ -73,6 +73,7 @@ export default {
           this.outputs = this.apiResponse.outputs
         }
         })
+      .catch(alert("No fue posible acceder a la transacción dada"))
   },
     },
   mounted() {
