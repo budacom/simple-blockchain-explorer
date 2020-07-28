@@ -18,7 +18,6 @@
             </option>
           </select>
     <input v-model="hash" placeholder="hash">
-    <p> Searching for transaction: {{ this.hash }} in {{ this.message }}</p>
     <button
             type="button"
             class="btn"
@@ -26,14 +25,16 @@
           >
             Search
           </button>
-    <p v-if="apiResponse"> {{ this.apiResponse }}</p>
     <div v-for="(value, name) in list" :key="name">
       {{ name }}: {{ value }}
     </div>
+    <SendersRecipients v-bind:inputs="inputs" v-bind:outputs="outputs"/>
   </div>
 </template>
 
 <script>
+
+import SendersRecipients from './SendersRecipients.vue'
 
 export default {
     data() {
@@ -43,7 +44,12 @@ export default {
       apiResponse: null,
       list: {},
       coins: ['bitcoin', 'litecoin', 'bitcoin-cash'],
+      inputs: [],
+      outputs: [],
     };
+  },
+  components: {
+    SendersRecipients,
   },
   methods: {
     getTx() {
@@ -52,9 +58,11 @@ export default {
       .then((response) => {
         this.apiResponse = response.data.data[Object.keys(response.data.data)]
         if (this.apiResponse) {
-          this.list["fees"] = `${this.apiResponse.transaction.fee} SAT`
-          this.list["input amount"] = `${this.apiResponse.transaction.input_total} BTC`
-          this.list["output amount"] = `${this.apiResponse.transaction.output_total} BTC`
+          this.list["fees"] = `${this.apiResponse.transaction.fee/100000000} ${this.message}`
+          this.list["input amount"] = `${this.apiResponse.transaction.input_total} ${this.message}`
+          this.list["output amount"] = `${this.apiResponse.transaction.output_total} ${this.message}`
+          this.inputs = this.apiResponse.inputs
+          this.outputs = this.apiResponse.outputs
         }
         })
   },
@@ -65,4 +73,14 @@ export default {
 </script>
 
 <style scoped>
+select {
+        width: 120px;
+        height: 30px;
+        border: 1px solid #999;
+        font-size: 18px;
+        color: black;
+        background-color: #eee;
+        border-radius: 5px;
+        box-shadow: 4px 4px #ccc;
+      }
 </style>
