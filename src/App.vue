@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <AddressInfo/>
+    <img alt="Vue logo" src="./assets/logo.png">
+    <TxFinder/>
   </div>
 </template>
 
 <script>
-import AddressInfo from './components/AddressInfo.vue'
+import TxFinder from './components/TxFinder.vue'
 
 export default {
   name: 'App',
   components: {
-    AddressInfo,
+    TxFinder
   }
 }
 </script>
