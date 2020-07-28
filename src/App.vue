@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <AdressInfo/>
+    <AddressInfo/>
   </div>
 </template>
 
 <script>
-import AdressInfo from './components/AdressInfo.vue'
+import AddressInfo from './components/AddressInfo.vue'
 
 export default {
   name: 'App',
   components: {
-    AdressInfo,
+    AddressInfo,
   }
 }
 </script>
