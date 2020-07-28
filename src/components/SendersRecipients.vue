@@ -6,17 +6,18 @@
         <th>Senders</th>
       </tr>
       <tr v-for="input in inputs" :key="input.spending_signature_hex">
-        <td> {{input.value}} </td>
-        <td> {{input.recipient}} </td>
+        <td> {{input.output_value}} </td>
+        <td> {{input.addresses[0]}} </td>
       </tr>
     </table>
+    <img class=right-arrow alt="Right arrow" src="../assets/right_arrow.jpg">
     <table class=recipients-container>
       <tr>
         <th>Recipients</th>
         <th>Ammount</th>
       </tr>
       <tr v-for="output in outputs" :key="output.spending_signature_hex">
-        <td> {{output.recipient}} </td>
+        <td> {{output.addresses[0]}} </td>
         <td> {{output.value}} </td>
       </tr>
     </table>
@@ -25,7 +26,6 @@
 
 <script>
 export default {
-  name: 'SendersRecipients',
   props: {
     inputs: Array,
     outputs: Array
@@ -35,19 +35,26 @@ export default {
 
 <style scoped>
 .senders-container {
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 40%;
   order: 1;
   flex-grow: 1;
 }
-.recipients-container {
-  margin-left: 10%;
-  margin-right: 10%;
+.right-arrow {
+  width: 20%;
   order: 2;
   flex-grow: 1;
 }
+.recipients-container {
+  width: 40%;
+  order: 3;
+  flex-grow: 1;
+}
 .senders-recipients-container {
-  background: lightgray;
+  background: rgb(241, 241, 241);
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+  border-radius: 5px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
