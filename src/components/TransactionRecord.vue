@@ -1,7 +1,7 @@
 <template>
   <div class=transaction-record-container>
     <ul>
-      <li v-for="(transaction, hash) in transactions" :key="hash">
+      <li v-for="transaction in transactions" :key="transaction.hash">
         <SendersRecipients :inputs="transaction.inputs" :outputs="transaction.outputs"/>
       </li>
     </ul>
@@ -12,15 +12,23 @@
 import SendersRecipients from './SendersRecipients.vue'
 
 export default {
-  name: 'TransactionRecord',
   props: {
     transactions: Array
   },
   components: {
     SendersRecipients
+  },
+  data () {
+    console.log(this.transactions)
+    return {
+
+    }
   }
 }
 </script>
 
 <style scoped>
+li {
+  list-style-type:none
+}
 </style>
