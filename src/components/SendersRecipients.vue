@@ -20,7 +20,7 @@
         <td> {{output.value}} </td>
       </tr>
     </table>
-  </div>    
+  </div>
 </template>
 
 <script>

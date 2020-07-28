@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <TxFinder/>
+    <DynamicView/>
   </div>
 </template>
 
 <script>
-import TxFinder from './components/TxFinder.vue'
+import DynamicView from './components/DynamicView.vue'
 
 export default {
   name: 'App',
   components: {
-    TxFinder
+    DynamicView
   }
 }
 </script>
