@@ -5,9 +5,9 @@
         <th>Ammount</th>
         <th>Senders</th>
       </tr>
-      <tr v-for="sender in senders" :key="sender">
-        <td> {{sender.value}} </td>
-        <td> {{sender.recipient}} </td>
+      <tr v-for="input in inputs" :key="input.spending_signature_hex">
+        <td> {{input.value}} </td>
+        <td> {{input.recipient}} </td>
       </tr>
     </table>
     <table class=recipients-container>
@@ -15,9 +15,9 @@
         <th>Recipients</th>
         <th>Ammount</th>
       </tr>
-      <tr v-for="recipient in recipients" :key="recipient">
-        <td> {{recipient.recipient}} </td>
-        <td> {{recipient.value}} </td>
+      <tr v-for="output in outputs" :key="output.spending_signature_hex">
+        <td> {{output.recipient}} </td>
+        <td> {{output.value}} </td>
       </tr>
     </table>
   </div>    
@@ -29,14 +29,6 @@ export default {
   props: {
     inputs: Array,
     outputs: Array
-  },
-  data () {
-    console.log(this.inputs)
-    console.log(this.outputs)
-    return {
-      senders: this.inputs,
-      recipients: this.outputs
-    }
   }
 }
 </script>
