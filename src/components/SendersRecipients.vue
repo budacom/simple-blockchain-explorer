@@ -35,17 +35,21 @@ export default {
 
 <style scoped>
 .senders-container {
-  width: 40%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 45%;
   order: 1;
   flex-grow: 1;
 }
 .right-arrow {
-  width: 20%;
+  width: 10%;
   order: 2;
   flex-grow: 1;
 }
 .recipients-container {
-  width: 40%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 45%;
   order: 3;
   flex-grow: 1;
 }
