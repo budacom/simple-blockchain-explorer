@@ -2,9 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import vSelect from "vue-select";
-
-Vue.component("v-select", vSelect);
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
