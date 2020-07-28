@@ -3,18 +3,19 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <ApiCall/>
+    <TxFinder/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import ApiCall from './components/ApiCall.vue'
+import TxFinder from './components/TxFinder.vue'
 
 export default {
   name: 'App',
   components: {
-    ApiCall,
-    HelloWorld
+    HelloWorld,
+    TxFinder
   }
 }
 </script>
