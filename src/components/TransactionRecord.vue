@@ -2,7 +2,7 @@
   <div class=transaction-record-container>
     <ul>
       <li v-for="transaction in transactions" :key="transaction.hash">
-        <SendersRecipients :inputs="transaction.inputs" :outputs="transaction.outputs"/>
+        <SendersRecipients :inputs="transaction.inputs" :outputs="transaction.outputs" :denomination="denomination"/>
       </li>
     </ul>
   </div>
@@ -13,7 +13,8 @@ import SendersRecipients from './SendersRecipients.vue'
 
 export default {
   props: {
-    transactions: Array
+    transactions: Array,
+    denomination: String
   },
   components: {
     SendersRecipients
@@ -28,7 +29,8 @@ export default {
 </script>
 
 <style scoped>
-li {
-  list-style-type:none
+ul {
+  list-style: none;
+  padding-left: 0;
 }
 </style>

@@ -1,19 +1,25 @@
 <template>
   <div class=address-info-container>
-    <div class=address-form>
-      <select v-model="selected_coin">
-        <option value='0'>Bitcoin</option>
-        <option value='1'>Litecoin</option>
-      </select>
-      <input v-model="address" placeholder="Address">
-      <button @click="get_address_info" class=search_address_button>Search</button>
+    <div class=container>
+      <div class=select-container>
+        <select v-model="selected_coin" class=select-coin>
+          <option value='0'>Bitcoin</option>
+          <option value='1'>Litecoin</option>
+        </select>
+      </div>
+      <div class=text-container>
+        <input v-model="address" placeholder="Dirección" class=text-input>
+      </div>
+      <div class=button-container>
+        <button @click="get_address_info" class=search-button>Buscar</button>
+      </div>
     </div>
 
-    <div v-if="valid_address" class=results-display>
+    <div v-if="valid_address" class=results-container>
       <p>Balance: {{ this.resquest_data.balance }} {{this.coins_info[this.selected_coin][3]}} ({{ this.resquest_data.balance / 100000000}} {{this.coins_info[this.selected_coin][1]}})</p>
-      <p>Sent: {{ this.resquest_data.total_sent }} {{this.coins_info[this.selected_coin][3]}} ({{ this.resquest_data.total_sent / 100000000}}  {{this.coins_info[this.selected_coin][1]}})</p>
-      <p>Received: {{ this.resquest_data.total_received }} {{this.coins_info[this.selected_coin][3]}} ({{ this.resquest_data.total_received / 100000000}}  {{this.coins_info[this.selected_coin][1]}})</p>
-      <TransactionRecord v-bind:transactions="transactions"/>
+      <p>Enviado: {{ this.resquest_data.total_sent }} {{this.coins_info[this.selected_coin][3]}} ({{ this.resquest_data.total_sent / 100000000}}  {{this.coins_info[this.selected_coin][1]}})</p>
+      <p>Recibido: {{ this.resquest_data.total_received }} {{this.coins_info[this.selected_coin][3]}} ({{ this.resquest_data.total_received / 100000000}}  {{this.coins_info[this.selected_coin][1]}})</p>
+      <TransactionRecord v-bind:transactions="transactions" :denomination="this.coins_info[this.selected_coin][1]"/>
     </div>
   </div>
 </template>
@@ -35,8 +41,8 @@ export default {
       selected_coin: 0,
       // Coins info
       coins_info: [
-        ["btc", "BTC", "Bitcoins", "Satoshis"],
-        ["ltc", "LTC", "Litecoins", "Litoshis"]
+        ["btc", "BTC", "Bitcoins", "Satoshi"],
+        ["ltc", "LTC", "Litecoins", "Litoshi"]
       ],
       // Full answer given by the API
       resquest_data: null,
@@ -56,8 +62,11 @@ export default {
           this.resquest_data = response.data
           this.transactions = this.resquest_data.txs
         })
-        .catch(alert("No fue posible acceder a la dirección dada"))
-      
+        .catch(error => {
+        if (!error.response || error.response.status != 200) {
+          alert("No fue posible acceder a la transacción dada")
+        }
+      })
     }
   },
   components: {
