@@ -2,23 +2,23 @@
   <div class=senders-recipients-container>
     <table class=senders-container>
       <tr>
-        <th>Ammount</th>
-        <th>Senders</th>
+        <th class=left>Monto</th>
+        <th class=right>Envían</th>
       </tr>
       <tr v-for="input in inputs" :key="input.spending_signature_hex">
-        <td> {{input.output_value}} </td>
-        <td> {{input.addresses[0]}} </td>
+        <td class=left> {{input.output_value / 100000000}} {{denomination}}</td>
+        <td class=right> {{input.addresses[0]}} </td>
       </tr>
     </table>
     <img class=right-arrow alt="Right arrow" src="../assets/right_arrow.jpg">
     <table class=recipients-container>
       <tr>
-        <th>Recipients</th>
-        <th>Ammount</th>
+        <th class=left>Reciben</th>
+        <th class=right>Monto</th>
       </tr>
       <tr v-for="output in outputs" :key="output.spending_signature_hex">
-        <td> {{output.addresses[0]}} </td>
-        <td> {{output.value}} </td>
+        <td class=left> {{output.addresses[0]}} </td>
+        <td class=right> {{output.value / 100000000}} {{creation_denomination}}</td>
       </tr>
     </table>
   </div>
@@ -28,28 +28,61 @@
 export default {
   props: {
     inputs: Array,
-    outputs: Array
+    outputs: Array,
+    denomination: String,
+    highlighted: String
+  },
+  data() {
+    return {
+      creation_denomination: this.denomination,
+      creation_highlighted: this.highlighted
+    }
   }
 }
 </script>
 
 <style scoped>
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+th {
+  font-family: myriad_pro_lightregular,helvetica,arial,sans-serif;
+  text-transform: uppercase;
+  font-weight: lighter;
+  color: #888;
+  font-size: small;
+}
+td {
+  font-family: monospace;
+  font-weight: normal;
+  color: rgb(43, 56, 64);
+  font-size: small;
+  text-align: right;
+}
 .senders-container {
+  margin-left: 3%;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 45%;
+  width: 47%;
   order: 1;
   flex-grow: 1;
 }
 .right-arrow {
-  width: 10%;
+  margin-right: 3%;
+  margin-left: 3%;
+  width: 5%;
   order: 2;
   flex-grow: 1;
+
 }
 .recipients-container {
+  margin-right: 3%;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 45%;
+  width: 47%;
   order: 3;
   flex-grow: 1;
 }
@@ -62,6 +95,6 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  align-items: flex-start
+  align-items: flex-start;
 }
 </style>

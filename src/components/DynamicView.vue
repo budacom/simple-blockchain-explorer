@@ -49,18 +49,17 @@ export default {
     width: 200px;
     font-size: 30px;
     font-family: sans-serif;
-  padding:0.6em 2em;
   color:#fff;
+  margin-right: 1px;
   background-color:#1976d2;
   font-size:1.1em;
   border:0;
   cursor:pointer;
   margin-bottom: 20px;
   margin-top: 30px;
-
   }
 
   .tabs:focus {
   background-color: darkblue;
-}
+  }
 </style>
